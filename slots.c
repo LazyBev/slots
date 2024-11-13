@@ -33,21 +33,63 @@ const char* spinReel() {
 
 
 int calculatePrize(const char *reel1, const char *reel2, const char *reel3) {
-    if (reel1 == reel2 && reel2 == reel3) {
-        if (reel1 == "7") return 500;
-        if (reel1 == "$") return 50;
-        if (reel1 == "£") return 10;
-        if (reel1 == "#") return 5;
-        if (reel1 == "X") return 1;
+    // Double Symbol Matches (Mixed combinations)
+    if ((strcmp(reel1, reel3) == 0)) {
+        if (strcmp(reel1, "7") == 0) {
+            if (strcmp(reel2, "$") == 0) return 500;  // 7$7
+            if (strcmp(reel2, "£") == 0) return 300;  // 7£7
+            if (strcmp(reel2, "#") == 0) return 200;  // 7#7
+            if (strcmp(reel2, "X") == 0) return 150;  // 7X7
+        }
+
+        if (strcmp(reel1, "$") == 0) {
+            if (strcmp(reel2, "7") == 0) return 250;  // $7$
+            if (strcmp(reel2, "£") == 0) return 200;  // $£$
+            if (strcmp(reel2, "#") == 0) return 150;  // $#$
+            if (strcmp(reel2, "X") == 0) return 100;  // $X$
+        }
+
+        if (strcmp(reel1, "£") == 0) {
+            if (strcmp(reel2, "7") == 0) return 350;  // £7£
+            if (strcmp(reel2, "$") == 0) return 300;  // £$£
+            if (strcmp(reel2, "#") == 0) return 175;  // £#£
+            if (strcmp(reel2, "X") == 0) return 100;  // £X£
+        }
+
+        if (strcmp(reel1, "#") == 0) {
+            if (strcmp(reel2, "7") == 0) return 250;  // #7#
+            if (strcmp(reel2, "$") == 0) return 200;  // $#$
+            if (strcmp(reel2, "£") == 0) return 175;  // #£#
+            if (strcmp(reel2, "X") == 0) return 80;   // #X#
+        }
+
+        if (strcmp(reel1, "X") == 0) {
+            if (strcmp(reel2, "7") == 0) return 200;  // X7X
+            if (strcmp(reel2, "$") == 0) return 150;  // X$X
+            if (strcmp(reel2, "£") == 0) return 125;  // X£X
+            if (strcmp(reel2, "#") == 0) return 80;   // X#X
+        }
     }
+
+    // Triple Symbol Matches (All 3 symbols match)
+    if (strcmp(reel1, reel2) == 0 && strcmp(reel2, reel3) == 0) {
+        if (strcmp(reel1, "7") == 0) return 5000;  // 7-7-7 Jackpot
+        if (strcmp(reel1, "$") == 0) return 1000; // $-$-$
+        if (strcmp(reel1, "£") == 0) return 600;  // £-£-£
+        if (strcmp(reel1, "#") == 0) return 350;  // #-#-#
+        if (strcmp(reel1, "X") == 0) return 200;  // X-X-X
+    }
+
+    // Default case: no match
     return 0;
 }
+
 
 int main() {
     const char *reel1, *reel2, *reel3;
     char choice;
     int rolls, money = 0;
-    int costPerRoll = 1;
+    int costPerRoll = 3;
 
     srand(time(NULL));
 
@@ -65,7 +107,7 @@ int main() {
     do {
         system("clear");
 
-        if (rolls == 0 && money > 5) {
+        if (rolls == 0 && money < 3) {
             printf("You have no rolls and no money. You lost the game!\n");
             SLEEP(2);
             break;
@@ -109,22 +151,22 @@ int main() {
                             SLEEP(1);
 
                             int prize = calculatePrize(reel1, reel2, reel3);
+                            system("clear");
                             if (prize > 0) {
                                 if (reel1 == "$" && reel2 == "$" && reel3 == "$") {
-                                    system("clear");
-                                    printf("!!! JACKPOT!!! You win $%d !!!\n", prize);
+                                    printf("!!! JACKPOT!!! \n!!! You win $%d !!!", prize);
                                 } else {
-                                    system("clear");
-                                    printf("!!! You win $%d !!!\n", prize);
+                                    printf("!!! You win $%d !!!", prize);
                                 }
                                 SLEEP(1);
                                 money += prize;
                             } else {
-                                system("clear");
                                 printf("No match, better luck next time!\n");
+                                SLEEP(1);
                             }
 
                             rolls--;
+                            system("clear");
                             printf("Rolls remaining: %d\n", rolls);
                             SLEEP(1);
                             system("clear");
