@@ -37,37 +37,37 @@ int calculatePrize(const char *reel1, const char *reel2, const char *reel3) {
     if ((strcmp(reel1, reel3) == 0)) {
         if (strcmp(reel1, "7") == 0) {
             if (strcmp(reel2, "$") == 0) return 500;  // 7$7
-            if (strcmp(reel2, "£") == 0) return 300;  // 7£7
-            if (strcmp(reel2, "#") == 0) return 200;  // 7#7
-            if (strcmp(reel2, "X") == 0) return 150;  // 7X7
+            if (strcmp(reel2, "£") == 0) return 400;  // 7£7
+            if (strcmp(reel2, "#") == 0) return 300;  // 7#7
+            if (strcmp(reel2, "X") == 0) return 250;  // 7X7
         }
 
         if (strcmp(reel1, "$") == 0) {
-            if (strcmp(reel2, "7") == 0) return 250;  // $7$
-            if (strcmp(reel2, "£") == 0) return 200;  // $£$
+            if (strcmp(reel2, "7") == 0) return 350;  // $7$
+            if (strcmp(reel2, "£") == 0) return 250;  // $£$
             if (strcmp(reel2, "#") == 0) return 150;  // $#$
             if (strcmp(reel2, "X") == 0) return 100;  // $X$
         }
 
         if (strcmp(reel1, "£") == 0) {
-            if (strcmp(reel2, "7") == 0) return 350;  // £7£
-            if (strcmp(reel2, "$") == 0) return 300;  // £$£
-            if (strcmp(reel2, "#") == 0) return 175;  // £#£
-            if (strcmp(reel2, "X") == 0) return 100;  // £X£
+            if (strcmp(reel2, "7") == 0) return 250;  // £7£
+            if (strcmp(reel2, "$") == 0) return 150;  // £$£
+            if (strcmp(reel2, "#") == 0) return 150;  // £#£
+            if (strcmp(reel2, "X") == 0) return 50;  // £X£
         }
 
         if (strcmp(reel1, "#") == 0) {
-            if (strcmp(reel2, "7") == 0) return 250;  // #7#
-            if (strcmp(reel2, "$") == 0) return 200;  // $#$
-            if (strcmp(reel2, "£") == 0) return 175;  // #£#
-            if (strcmp(reel2, "X") == 0) return 80;   // #X#
+            if (strcmp(reel2, "7") == 0) return 200;  // #7#
+            if (strcmp(reel2, "$") == 0) return 100;  // $#$
+            if (strcmp(reel2, "£") == 0) return 50;  // #£#
+            if (strcmp(reel2, "X") == 0) return 25;   // #X#
         }
 
         if (strcmp(reel1, "X") == 0) {
-            if (strcmp(reel2, "7") == 0) return 200;  // X7X
-            if (strcmp(reel2, "$") == 0) return 150;  // X$X
-            if (strcmp(reel2, "£") == 0) return 125;  // X£X
-            if (strcmp(reel2, "#") == 0) return 80;   // X#X
+            if (strcmp(reel2, "7") == 0) return 150;  // X7X
+            if (strcmp(reel2, "$") == 0) return 50;  // X$X
+            if (strcmp(reel2, "£") == 0) return 25;  // X£X
+            if (strcmp(reel2, "#") == 0) return 12;   // X#X
         }
     }
 
@@ -89,11 +89,11 @@ int main() {
     const char *reel1, *reel2, *reel3;
     char choice;
     int rolls, money = 0;
-    int costPerRoll = 3;
+    int costPerRoll = 20;
 
     srand(time(NULL));
 
-    rolls = rand() % 50;
+    rolls = rand() % 100;
     rolls = (rolls == 0) ? rolls += 3 : rolls;
 
     system("clear");
@@ -105,14 +105,14 @@ int main() {
     SLEEP(1);
 
     do {
-        system("clear");
 
         if (rolls == 0 && money < 3) {
             printf("You have no rolls and no money. You lost the game!\n");
             SLEEP(2);
             break;
         }
-    
+
+        system("clear");
         printf("\n--- Slot Machine Menu ---\n");
         printf("1. Play\n");
         printf("2. Shop (Buy rolls)\n");
@@ -123,9 +123,12 @@ int main() {
         scanf(" %c", &choice);
         system("clear");
 
+        int turbo;
+
         switch (choice) {
             case '1':
                 if (rolls > 0) {
+                    system("clear");
                     int rollsToPlay;
                     printf("How many times would you like to roll? (You have %d rolls remaining.): ", rolls);
                     scanf("%d", &rollsToPlay);
@@ -134,42 +137,71 @@ int main() {
                         printf("You don't have enough rolls! You can only roll up to %d times.\n", rolls);
                         SLEEP(1);
                     } else {
-                        for (int i = 0; i < rollsToPlay; i++) {
-                            system("clear");
-                            printf("Spinning...\n\n");
+                        int totalPrize = 0;
+                        printf("Do you want to skip the rolling? (1. yes, 2. no): ");
+                        scanf("%d", &turbo);
+                        if (turbo != 1) {
+                            for (int i = 0; i < rollsToPlay; i++) {
+                                system("clear");
+                                printf("Spinning...\n\n");
 
-                            reel1 = spinReel();
-                            reel2 = spinReel();
-                            reel3 = spinReel();
-                            sevenCount = (sevenCount > 0) ? 0 : sevenCount; 
+                                reel1 = spinReel();
+                                reel2 = spinReel();
+                                reel3 = spinReel();
+                                sevenCount = (sevenCount > 0) ? 0 : sevenCount; 
 
-                            printf("---------------\n");
-                            printf("--   %s", reel1);
-                            printf(" %s ", reel2);
-                            printf("%s   --\n", reel3);
-                            printf("---------------\n");
-                            SLEEP(1);
+                                printf("---------------\n");
+                                printf("--   %s", reel1);
+                                printf(" %s ", reel2);
+                                printf("%s   --\n", reel3);
+                                printf("---------------\n");
+                                SLEEP(1);
 
-                            int prize = calculatePrize(reel1, reel2, reel3);
-                            system("clear");
-                            if (prize > 0) {
-                                if (reel1 == "$" && reel2 == "$" && reel3 == "$") {
-                                    printf("!!! JACKPOT!!! \n!!! You win $%d !!!", prize);
+                                int prize = calculatePrize(reel1, reel2, reel3);
+                                system("clear");
+                                if (prize > 0) {
+                                    if (reel1 == "$" && reel2 == "$" && reel3 == "$") {
+                                        printf("!!! JACKPOT!!! \n!!! You win $%d !!!", prize);
+                                    } else {
+                                        printf("!!! You win $%d !!!", prize);
+                                    }
+                                    money += prize;
                                 } else {
-                                    printf("!!! You win $%d !!!", prize);
+                                    printf("No match, better luck next time!\n");
+                                    SLEEP(1);
                                 }
-                                SLEEP(1);
-                                money += prize;
-                            } else {
-                                printf("No match, better luck next time!\n");
-                                SLEEP(1);
-                            }
 
-                            rolls--;
-                            system("clear");
-                            printf("Rolls remaining: %d\n", rolls);
-                            SLEEP(1);
-                            system("clear");
+                                rolls--;
+                                system("clear");
+                                printf("Rolls remaining: %d\n", rolls);
+                                SLEEP(1);
+                                system("clear");
+                            }
+                        } else {
+                            for (int i = 0; i < rollsToPlay; i++) {
+                                system("clear");
+
+                                reel1 = spinReel();
+                                reel2 = spinReel();
+                                reel3 = spinReel();
+
+                                sevenCount = (sevenCount > 0) ? 0 : sevenCount; 
+
+                                int prize = calculatePrize(reel1, reel2, reel3);
+                                if (prize > 0) {
+                                    money += prize;
+                                    totalPrize += prize;
+                                }
+
+                                rolls--;
+                            }
+                            if (totalPrize == 0) {
+                                printf("You won nothing");
+                                SLEEP(2);
+                            } else {
+                                printf("!!! You won %d !!!", totalPrize);
+                                SLEEP(2);
+                            }
                         }
                     }
                 } else {
