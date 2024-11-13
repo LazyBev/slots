@@ -11,7 +11,7 @@
     #define SLEEP(seconds) sleep(seconds)
 #endif
 
-const char *symbols[] = {"7", "$", "£", "#", "X"};
+const char *symbols[] = {"🍀", "💰", "💷", "🔑", "❌"};
 const int numSymbols = sizeof(symbols) / sizeof(symbols[0]);
 
 int sevenCount = 0;
@@ -35,49 +35,49 @@ const char* spinReel() {
 int calculatePrize(const char *reel1, const char *reel2, const char *reel3) {
     // Double Symbol Matches (Mixed combinations)
     if ((strcmp(reel1, reel3) == 0)) {
-        if (strcmp(reel1, "7") == 0) {
-            if (strcmp(reel2, "$") == 0) return 500;  // 7$7
-            if (strcmp(reel2, "£") == 0) return 400;  // 7£7
-            if (strcmp(reel2, "#") == 0) return 300;  // 7#7
-            if (strcmp(reel2, "X") == 0) return 250;  // 7X7
+        if (strcmp(reel1, "🍀") == 0) {
+            if (strcmp(reel2, "💰") == 0) return 500;  // 🍀💰🍀
+            if (strcmp(reel2, "💷") == 0) return 400;  // 🍀💷🍀
+            if (strcmp(reel2, "🔑") == 0) return 300;  // 🍀🔑🍀
+            if (strcmp(reel2, "❌") == 0) return 250;  // 🍀❌🍀
         }
 
-        if (strcmp(reel1, "$") == 0) {
-            if (strcmp(reel2, "7") == 0) return 350;  // $7$
-            if (strcmp(reel2, "£") == 0) return 250;  // $£$
-            if (strcmp(reel2, "#") == 0) return 150;  // $#$
-            if (strcmp(reel2, "X") == 0) return 100;  // $X$
+        if (strcmp(reel1, "💰") == 0) {
+            if (strcmp(reel2, "🍀") == 0) return 350;  // 💰🍀💰
+            if (strcmp(reel2, "💷") == 0) return 250;  // 💰💷💰
+            if (strcmp(reel2, "🔑") == 0) return 150;  // 💰🔑💰
+            if (strcmp(reel2, "❌") == 0) return 100;  // 💰❌💰
         }
 
-        if (strcmp(reel1, "£") == 0) {
-            if (strcmp(reel2, "7") == 0) return 250;  // £7£
-            if (strcmp(reel2, "$") == 0) return 150;  // £$£
-            if (strcmp(reel2, "#") == 0) return 150;  // £#£
-            if (strcmp(reel2, "X") == 0) return 50;  // £X£
+        if (strcmp(reel1, "💷") == 0) {
+            if (strcmp(reel2, "🍀") == 0) return 250;  // 💷🍀💷
+            if (strcmp(reel2, "💰") == 0) return 150;  // 💷💰💷
+            if (strcmp(reel2, "🔑") == 0) return 150;  // 💷🔑💷
+            if (strcmp(reel2, "❌") == 0) return 50;   // 💷❌💷
         }
 
-        if (strcmp(reel1, "#") == 0) {
-            if (strcmp(reel2, "7") == 0) return 200;  // #7#
-            if (strcmp(reel2, "$") == 0) return 100;  // $#$
-            if (strcmp(reel2, "£") == 0) return 50;  // #£#
-            if (strcmp(reel2, "X") == 0) return 25;   // #X#
+        if (strcmp(reel1, "🔑") == 0) {
+            if (strcmp(reel2, "🍀") == 0) return 200;  // 🔑🍀🔑
+            if (strcmp(reel2, "💰") == 0) return 100;  // 💰🔑💰
+            if (strcmp(reel2, "💷") == 0) return 50;   // 💷🔑💷
+            if (strcmp(reel2, "❌") == 0) return 25;   // 🔑❌🔑
         }
 
-        if (strcmp(reel1, "X") == 0) {
-            if (strcmp(reel2, "7") == 0) return 150;  // X7X
-            if (strcmp(reel2, "$") == 0) return 50;  // X$X
-            if (strcmp(reel2, "£") == 0) return 25;  // X£X
-            if (strcmp(reel2, "#") == 0) return 12;   // X#X
+        if (strcmp(reel1, "❌") == 0) {
+            if (strcmp(reel2, "🍀") == 0) return 150;  // ❌🍀❌
+            if (strcmp(reel2, "💰") == 0) return 50;   // ❌💰❌
+            if (strcmp(reel2, "💷") == 0) return 25;   // ❌💷❌
+            if (strcmp(reel2, "🔑") == 0) return 12;   // ❌🔑❌
         }
     }
 
     // Triple Symbol Matches (All 3 symbols match)
     if (strcmp(reel1, reel2) == 0 && strcmp(reel2, reel3) == 0) {
-        if (strcmp(reel1, "7") == 0) return 5000;  // 7-7-7 Jackpot
-        if (strcmp(reel1, "$") == 0) return 1000; // $-$-$
-        if (strcmp(reel1, "£") == 0) return 600;  // £-£-£
-        if (strcmp(reel1, "#") == 0) return 350;  // #-#-#
-        if (strcmp(reel1, "X") == 0) return 200;  // X-X-X
+        if (strcmp(reel1, "🍀") == 0) return 5000;  // 🍀🍀🍀 Jackpot
+        if (strcmp(reel1, "💰") == 0) return 1000; // 💰💰💰
+        if (strcmp(reel1, "💷") == 0) return 600;  // 💷💷💷
+        if (strcmp(reel1, "🔑") == 0) return 350;  // 🔑🔑🔑
+        if (strcmp(reel1, "❌") == 0) return 200;  // ❌❌❌
     }
 
     // Default case: no match
@@ -105,7 +105,7 @@ int main() {
     SLEEP(1);
 
     do {
-
+        system("clear");
         if (rolls == 0 && money < 3) {
             printf("You have no rolls and no money. You lost the game!\n");
             SLEEP(2);
@@ -150,11 +150,11 @@ int main() {
                                 reel3 = spinReel();
                                 sevenCount = (sevenCount > 0) ? 0 : sevenCount; 
 
-                                printf("---------------\n");
-                                printf("--   %s", reel1);
+                                printf("--------------\n");
+                                printf("-- %s", reel1);
                                 printf(" %s ", reel2);
-                                printf("%s   --\n", reel3);
-                                printf("---------------\n");
+                                printf("%s --\n", reel3);
+                                printf("--------------\n");
                                 SLEEP(1);
 
                                 int prize = calculatePrize(reel1, reel2, reel3);
